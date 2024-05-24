@@ -306,7 +306,7 @@ recommends.value = convert1dTo2d(recommends.value, 5)
       <el-container>
         <el-header style="height: auto;">
           <el-row> <el-col :offset="2" :span="18">
-            <el-carousel :interval="4000" type="card" :height="screenHeight" style="width: 1700px" .el-carousel>
+            <el-carousel :interval="4000" type="card" height="11.6em" .el-carousel style="width:48em">
             <el-carousel-item>
               <el-image src="/src/assets/acitvit (1).jpg"></el-image>
             </el-carousel-item>
@@ -363,7 +363,7 @@ recommends.value = convert1dTo2d(recommends.value, 5)
                  </el-tabs>
              </el-col>
            </el-row>
-          <el-row style="padding-top: 30px">
+          <el-row style="padding-top: 2em">
               <el-row>
                 <el-col :span="24">
                   <span class="recommend"><el-icon><Pointer /></el-icon> 为您推荐</span>
@@ -378,17 +378,17 @@ recommends.value = convert1dTo2d(recommends.value, 5)
                    <el-badge :value="book.dis_count+'折'" class="item">
                      <el-image :src="book.image"></el-image>
                    </el-badge>
-                   <div style="font-size: 14px">{{ book.describe }}</div>
+                   <div style="font-size: 0.9em">{{ book.describe }}</div>
                    <span>
                 <span style="color: red">{{ book.price }}￥</span>
-                <span style="padding-left: 10px"><el-text tag="del" type="info" size="small">{{ book.original_price }}￥</el-text></span>
+                <span style="padding-left: 0.8em"><el-text tag="del" type="info" size="small">{{ book.original_price }}￥</el-text></span>
                 </span>
                  </el-col>
                </el-row>
              </el-col>
           </el-row>
           <el-row>
-            <el-col :span="12" :offset="7">
+            <el-col :span="12" :offset="3">
               <el-pagination background layout="total, prev, pager, next , jumper" :total="1000"  class="el-pagination"
                              v-model:current-page="pageNum" v-model:page-size="pageSize"
                              @current-change="onCurrentChange"/>
@@ -403,7 +403,7 @@ recommends.value = convert1dTo2d(recommends.value, 5)
 <style scoped>
 .recommend{
   color: #ff9675;
-  font-size: 25px ;
+  font-size: 1.4em ;
   font-family: 'Palatino', 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua', serif;
   font-style: italic;
   font-weight: bold
@@ -420,13 +420,13 @@ recommends.value = convert1dTo2d(recommends.value, 5)
 .demo-tabs :deep(.el-tabs__item.is-active) {
   color: #E60000; /* 设置选中标签的文字颜色 */
   font-weight: bold; /* 设置选中标签的文字加粗 */
-  font-size: 17px; /* 设置选中标签的文字大小 */
+  font-size: 1.1em; /* 设置选中标签的文字大小 */
 }
 
 .demo-tabs :deep(.el-tabs__item:hover) {
   color: #E60000 !important; /* 设置鼠标悬停时标签的文字颜色 */
   font-weight: bold; /* 设置选中标签的文字加粗 */
-  font-size: 17px; /* 设置选中标签的文字大小 */
+  font-size: 1.1em; /* 设置选中标签的文字大小 */
 }
 
 .demo-tabs :deep(.el-tabs__active-bar) {
@@ -456,8 +456,8 @@ recommends.value = convert1dTo2d(recommends.value, 5)
   color:  #E60000;
 }
 .el-carousel :deep(.el-carousel__indicators li button){
-  height: 6px;
-  width: 100px;
+  height: 4px;
+  width: 4.25em;
   color:white;
   background-color: #E60000;
 }

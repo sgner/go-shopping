@@ -107,12 +107,12 @@
 </script>
 
 <template>
-    <div class="common-layout" style="min-width: 2200px;">
+    <div class="common-layout" style="min-width: 75em;">
       <el-container>
         <el-header class="header">
           <el-row style="background-color: #85DDAE">
             <el-col :span="24">
-              <div style="width: 100%; height: 100px; position: relative;">
+              <div style="width: 100%; height: 6em; position: relative;">
                 <el-image :src="imageSrc" @click="TopPromotions" fit="none" class="top-promotions"></el-image>
               </div>
             </el-col>
@@ -143,7 +143,7 @@
                                 <span>最近加入的商品</span>
                               </div>
                             </template>
-                            <el-table :data="shopping_cart" style="padding-top: 0;" tooltip-effect="light" height="300px" .is-light>
+                            <el-table :data="shopping_cart" style="padding-top: 0;" tooltip-effect="light" height="18.75em" .is-light>
                                 <el-table-column label="商品参考">
                                   <template #default="{row}">
                                     <el-image :src="row.image" fit="contain"></el-image>
@@ -180,7 +180,7 @@
                       </el-dropdown-menu>
                     </template>
                   </el-dropdown>
-                  <el-dropdown style="padding-left: 30px" .el-dropdown-menu v-if="isLogin">
+                  <el-dropdown style="padding-left: 2em" .el-dropdown-menu v-if="isLogin">
                     <el-avatar :size="35" :src="user.avatar===''? default_avatar:user.avatar"/>
                     <template #dropdown>
                       <el-dropdown-menu class="header-new-drop">
@@ -199,19 +199,19 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="3" :offset="7">
-              <span><el-image src="/src/assets/bbs.svg" style="width: 200px"></el-image></span>
+            <el-col :span="3" :offset="3">
+              <span><el-image src="/src/assets/bbs.svg" style="width: 12em"></el-image></span>
             </el-col>
-            <el-col :span="10" style="padding-top: 40px">
+            <el-col :span="14" style="padding-top: 2em" :offset="1">
                <span>
                  <el-input
                    v-model="search"
                    placeholder="Please input"
                    class="input-border-style"
-                   style="width: 700px"
+                   style="width: 43em"
                >
                 <template #append>
-                  <el-select v-model="select" :placeholder="select" style="width: 115px" class="select_box">
+                  <el-select v-model="select" :placeholder="select" style="width: 7em" class="select_box">
                   <el-option label="搜索作者" value="搜索作者" />
                   <el-option label="搜索书名" value="搜索书名" />
                   <el-option label="搜索出版社" value="搜索出版社" />
@@ -226,8 +226,8 @@
           <el-divider style="border-color: #E60000;border-width: 6px"></el-divider>
         </el-header>
         <el-container>
-          <el-aside width="300px" style="height: 80vh;background-color:  #F2F2F2">
-            <el-tabs tab-position="right" style="height: 200px" class="demo-tabs">
+          <el-aside width="15em" style="height: 100vh;background-color:  #F2F2F2">
+            <el-tabs tab-position="right" style="height: 12em" class="demo-tabs">
             <el-tab-pane label="User">User</el-tab-pane>
             <el-tab-pane label="Config">Config</el-tab-pane>
             <el-tab-pane label="Role">Role</el-tab-pane>
@@ -235,7 +235,9 @@
           </el-tabs></el-aside>
           <el-main>
             <div style="width: 100% ; height: 100%">
+              <el-scrollbar height="100vh">
                 <router-view></router-view>
+              </el-scrollbar>
               <el-backtop :bottom="100">
                 <div
                     style="
@@ -255,7 +257,7 @@
           </div>
           </el-main>
         </el-container>
-        <el-footer style="height: 20px">
+        <el-footer style="height: 1.2em">
         <el-row>
           <el-col :span="12" :offset="12">
             © 0223799李天赐
@@ -268,7 +270,7 @@
 
 <style scoped>
 .header-new-drop li {
-  width: 200px;
+  width: 12.5em;
   color: black;
 }
 ::v-deep(.header-new-drop .el-dropdown-menu__item:focus),
@@ -277,7 +279,7 @@
   color: #F2F2F2;
 }
 ::v-deep(.is-light){
-  max-width: 300px;}
+  max-width: 19em;}
 .header{
   padding: 0;
   height: auto;
@@ -295,17 +297,17 @@
   cursor: pointer;
 }
 .welcome-section{
-  padding-left: 60px;
-  padding-top: 10px;
+  padding-left: 3.75em;
+  padding-top: 0.625em;
   font-family: "Microsoft Himalaya", sans-serif;
-  font-size: 18px;
+  font-size: 1.1em;
   font-weight: 220;
   display: flex;
   justify-content: flex-start;
   color: #333
 }
 .login-prompt{
-  font-size:15px;
+  font-size:1em;
   font-weight: 220;
   color: #333;
   display: flex;
@@ -313,15 +315,15 @@
   justify-content: flex-start;
 }
 .login-link{
-  font-size:15px;
+  font-size:1em;
   font-weight: 220;
   vertical-align: middle;
   justify-content: flex-start;
 }
 .right-position{
    display: flex;
-   padding-right: 60px;
-   padding-top: 10px;
+   padding-right: 3.75em;
+   padding-top: 0.625em;
    justify-content: flex-end;
 
 }
@@ -330,15 +332,15 @@
   height: 100%;
 }
 .demo-tabs > .el-tabs__content {
-  padding: 32px;
+  padding: 2em;
   color: #6b778c;
-  font-size: 32px;
+  font-size: 2em;
   font-weight: 600;
 }
 .demo-tabs :deep(.el-tabs__item.is-active) {
   color: #E60000; /* 设置选中标签的文字颜色 */
   font-weight: bold; /* 设置选中标签的文字粗细 */
-  font-size: 17px; /* 设置选中标签的文字大小 */
+  font-size: 1em; /* 设置选中标签的文字大小 */
 }
 
 .demo-tabs :deep(.el-tabs__item:hover) {
@@ -381,7 +383,7 @@
 }
 .select_box{
   :deep(.el-input__inner::placeholder) {
-    font-size: 14px;
+    font-size: 0.9em;
     font-weight: 500;
     color: #3E534F;
   }

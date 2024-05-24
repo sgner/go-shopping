@@ -27,7 +27,7 @@ const book = ref(
       <el-container>
         <el-header style="height: auto">
           <el-row>
-            <el-col :span="12" :offset="4">
+            <el-col :span="24" :offset="1">
               <el-breadcrumb :separator-icon="ArrowRight">
                 <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
                 <el-breadcrumb-item>promotion management</el-breadcrumb-item>
@@ -36,26 +36,32 @@ const book = ref(
               </el-breadcrumb>
             </el-col>
           </el-row>
-          <el-row style="padding-top: 10px">
-            <el-col :span="5" :offset="4">
-              <el-image style="width: 300px; border: #DBDBDB 1px solid" :src="book.image" fit="scale-down" :preview-src-list="imageList" hide-on-click-modal></el-image>
+          <el-row style="padding-top: 0.925em">
+            <el-col :span="2" :offset="1">
+              <el-image style="width: 14.75em; border: #DBDBDB 1px solid" :src="book.image" fit="scale-down" :preview-src-list="imageList" hide-on-click-modal></el-image>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="15" :offset="6">
                <div class="book-name">
                    {{book.name}}
                </div>
                <div class="book-detail">
                  {{book.detail}}
                </div>
-               <div style="padding-top: 15px">
-                 <span class="book-pu">作者：<el-link style="font-size: 14px">{{book.author}}</el-link></span>&nbsp;&nbsp;
+               <div style="padding-top: 20px">
+                 <span class="book-pu">作者：<el-link style="font-size: 0.875em">{{book.author}}</el-link></span>&nbsp;&nbsp;
                </div>
                <el-row>
-                 <el-col :span="5"><span class="book-pu">出版社：<el-link style="font-size: 14px">{{book.publisher}}</el-link>&nbsp;&nbsp;</span></el-col>
-                  <el-col :span="6"><span class="book-pu">出版时间：{{book.publishedDate}}</span></el-col>
+                 <el-col :span="7"><span class="book-pu">出版社：<el-link style="font-size: 0.875em">{{book.publisher}}</el-link>&nbsp;&nbsp;</span></el-col>
+                 <el-col :span="6"><span class="book-pu">出版时间：<span style="font-size: 0.875em">{{book.publishedDate}}</span></span></el-col>
                </el-row>
-
-
+              <el-row style="padding-top: 0.925em">
+                <el-col :span="6">
+                  <span class="book-pu">开本：<span style="font-size: 0.875em">{{book.format}}</span></span>
+                </el-col>
+                <el-col :span="6">
+                <span class="book-pu">页数：<span style="font-size: 0.875em">{{book.pages}}</span></span>
+                </el-col>
+              </el-row>
             </el-col>
           </el-row>
         </el-header>
@@ -70,17 +76,17 @@ const book = ref(
   color: #E60000; /* 将悬停时的颜色设置为蓝色 */
 }
 .book-name{
-  font-size:20px;
+  font-size:1.25em;
   font-weight: bold;
 }
 .book-detail{
    color: #E60000;
-   padding-top: 10px;
-   font-size: 13px;
-   width: 500px;
+   padding-top: 0.675em;
+   font-size: 0.8125em;
+   width: 31.25em;
    font-family:"SimSun", "宋体", serif;
 }
 .book-pu{
-  font-size: 13px;display: flex;align-items: center
+  font-size: 0.8125em;display: flex;align-items: center
 }
 </style>
