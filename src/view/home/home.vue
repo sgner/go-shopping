@@ -387,8 +387,8 @@ recommends.value = convert1dTo2d(recommends.value, 5)
                </el-row>
              </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="12" :offset="3">
+          <el-row justify="center">
+            <el-col :span="10" :offset="5">
               <el-pagination background layout="total, prev, pager, next , jumper" :total="1000"  class="el-pagination"
                              v-model:current-page="pageNum" v-model:page-size="pageSize"
                              @current-change="onCurrentChange"/>

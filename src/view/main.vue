@@ -198,11 +198,11 @@
               </div>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row justify="center">
             <el-col :span="3" :offset="3">
               <span><el-image src="/src/assets/bbs.svg" style="width: 12em"></el-image></span>
             </el-col>
-            <el-col :span="14" style="padding-top: 2em" :offset="1">
+            <el-col :span="14" style="padding-top: 2.4em" :offset="2">
                <span>
                  <el-input
                    v-model="search"
