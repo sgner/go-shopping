@@ -2,11 +2,11 @@
   import {Discount,Star,DocumentAdd,Comment,Pointer} from '@element-plus/icons-vue';
   import {ref} from "vue";
   import discountsCommon from "@/components/discountsCommon.vue";
-  const screenWidth = ref(window.innerWidth)
-  const screenHeight = ref(350/1200*screenWidth)
+  const screenWidth = ref(window.innerWidth*0.65)
+  const screenHeight = ref(screenWidth.value*0.2)
   window.onresize = () => {
-       screenWidth.value = window.innerWidth
-       screenHeight.value = 350/1200*window.innerWidth
+      screenWidth.value = window.innerWidth*0.65
+      screenHeight.value = screenWidth.value*0.2
   };
   const new_discounts = ref({
      head: {
@@ -305,8 +305,8 @@ recommends.value = convert1dTo2d(recommends.value, 5)
     <div class="common-layout">
       <el-container>
         <el-header style="height: auto;">
-          <el-row> <el-col :offset="2" :span="18">
-            <el-carousel :interval="4000" type="card" height="11.6em" .el-carousel style="width:48em">
+          <el-row> <el-col :offset="3" :xs="20" :sm="20" :md="20" :lg="20" :xl="18">
+            <el-carousel :interval="4000" type="card" :height="screenHeight" :style="{ width: `${screenWidth}px`}" class="el-carousel">
             <el-carousel-item>
               <el-image src="/src/assets/acitvit (1).jpg"></el-image>
             </el-carousel-item>
@@ -320,9 +320,9 @@ recommends.value = convert1dTo2d(recommends.value, 5)
             </el-col>
           </el-row>
         </el-header>
-        <el-main style="height: auto">
+        <el-main style="height: auto ; min-width: 80em">
            <el-row>
-             <el-col class="Value-added-services" :offset="4" :xs="19" :sm="19" :md="18" :lg="18" :xl="16">
+             <el-col class="Value-added-services" :offset="4" :xs="19" :sm="18" :md="18" :lg="17" :xl="16">
                <el-tabs type="border-card" class="demo-tabs" style="border: #E60000 solid 1px;">
                    <el-tab-pane>
                      <template #label>
@@ -460,5 +460,8 @@ recommends.value = convert1dTo2d(recommends.value, 5)
   width: 4.25em;
   color:white;
   background-color: #E60000;
+}
+.el-carousel{
+  min-width: 70em;
 }
 </style>
