@@ -1,9 +1,10 @@
 <script setup>
   import {ref} from 'vue'
   const imageSrc = ref("/src/assets/1200100.jpg")
-  const isLogin = ref(true)
-  import { CaretTop,ArrowDown ,ShoppingCart,ShoppingCartFull,User,ChatDotRound,Discount,AddLocation,Comment,SwitchButton} from '@element-plus/icons-vue'
+  const isLogin = ref(false)
+  import { CaretTop,ArrowDown ,ShoppingCart,ShoppingCartFull,User,ChatDotRound,Discount,AddLocation,Comment,SwitchButton,Lock} from '@element-plus/icons-vue'
   import router from "@/router/index.js";
+  import loginComponent from "@/components/login.vue";
   const user = ref({
        id:'',
        username:'',
@@ -100,13 +101,103 @@
   const TopPromotions = ()=>{
 
   }
-  router.push('/book/book-detail')
-
+  router.push('/home')
+ const loginVisible = ref(false)
   const search = ref('')
   const select = ref('搜索书名')
+  const login = ref({
+        status: false
+  })
+  const registerData = ref({
+       username:'',
+       password:'',
+       rePassword:'',
+       code:'',
+  })
+  const toRegister = ()=>{
+
+  }
+  const clear = ()=>{
+      registerData.value = {
+        username:'',
+        password:'',
+        rePassword:'',
+      }
+  }
+  const loginData = ref({
+    username:'',
+    password:'',
+    rePassword:'',
+    isRemember:'',
+    isAuto:'',
+    code:'',
+  })
+  const img = ref('');
+  const imageVerify = ()=>{}
+  const clearLogin = ()=>{
+      loginData.value.code= ''
+      loginData.value.username = ''
+    loginData.value.password = ''
+    loginData.value.rePassword= ''
+  }
+  const checkRePassword = (rule, value, callback) => {
+    if (value === '') {
+      callback(new Error('请再次确认密码'))
+    } else if (value !== registerData.value.password) {
+      callback(new Error('请确保两次输入的密码一样'))
+    } else {
+      callback()
+    }
+  }
+
+  const checkCode = (rule,value,callback)=>{
+    if(value === ''){
+      callback(new Error("请输入验证码"))
+    }else if (value !== code.value){
+      callback(new Error("验证码错误!"))
+      imageVerify()
+    }else {
+      callback()
+    }
+  }
+
+  //定义表单校验规则
+  const rules = {
+    username: [
+      { required: true, message: '请输入用户名', trigger: 'blur' },
+      { min: 5, max: 16, message: '长度为5~16位非空字符', trigger: 'blur' }
+    ],
+    password: [
+      { required: true, message: '请输入密码', trigger: 'blur' },
+      { min: 5, max: 16, message: '长度为5~16位非空字符', trigger: 'blur' }
+    ],
+    rePassword: [
+      { validator: checkRePassword, trigger: 'blur' }
+    ]
+  }
+  const loginRule = {
+    username:[
+      {required:true,message:'请输入用户名',trigger:'blur'},
+    ],
+    password:[
+      {required:true,message:'请输入密码',trigger:'blur'}
+    ]
+    ,
+    code:[
+      {validator: checkCode,trigger:'blur'}
+    ]
+  }
+  const Login = ()=>{}
+  const Register = ()=>{}
 </script>
 
 <template>
+    <el-dialog v-model="loginVisible" title="注册/登录" width="600" draggable>
+        <loginComponent :clear="clear" :clear-login="clearLogin"
+                        :image-verify="imageVerify" :img="img"
+                        :login="Login" :login-data="loginData"
+                        :login-rule="loginRule" :isLogin="login" :register-data="registerData" :toRegister="Register" :rules="rules"/>
+    </el-dialog>
     <div class="common-layout" style="min-width: 75em;">
       <el-container>
         <el-header class="header">
@@ -123,7 +214,7 @@
                 <div class="welcome-section">
                    欢迎光临购书网！
                 <span v-if="!isLogin" class="login-prompt">
-                    请<el-link type="danger" class="login-link">注册</el-link><el-divider direction="vertical" /> <el-link type="danger" class="login-link">登录</el-link>
+                    请<el-link type="danger" class="login-link" @click="loginVisible=true;login.status=false;">注册</el-link><el-divider direction="vertical" /> <el-link type="danger" class="login-link" @click="loginVisible=true;login.status=true;">登录</el-link>
                 </span>
                 </div>
                 <div class="right-position">
@@ -150,7 +241,7 @@
                                   </template>
                                 </el-table-column>
                                 <el-table-column prop="description" label="描述" show-overflow-tooltip></el-table-column>
-                                <el-table-column prop="price" label="单价" show-overflow-tooltip>
+                                <el-table-column label="单价" show-overflow-tooltip>
                                   <template #default="{row}">
                                      {{row.price}}￥
                                   </template>
@@ -386,6 +477,26 @@
     font-size: 0.9em;
     font-weight: 500;
     color: #3E534F;
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  user-select: none;
+
+  .title {
+    margin: 0 auto;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .flex {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

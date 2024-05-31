@@ -13,9 +13,9 @@
        image: '/src/assets/s5920153.jpg',
        describe: '从来如此便对么鲁迅锦言录/豆瓣8.0分，比语录完整，比文章简明',
        price: '13.5',
-       original_price: '49.8',
+       originalPrice: '49.8',
        detail: '所谓锦言录，借一斑略知全豹，以一目尽传精神。鲁迅先生系列作品菁华摘选，当代著名学者、鲁迅研究专家陈漱渝积半个世纪研究之功，精心勾稽而成，一本书带你深读鲁迅。',
-       dis_count: '9',
+       discount: '9',
        rete:'4.5',
        comment:'100'
      },
@@ -23,30 +23,30 @@
        {
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-         original_price: '32.0',
+         originalPrice: '32.0',
          price: '8.0',
-         dis_count: '9',
+         discount: '9',
        },
        {
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-         original_price: '32.0',
+         originalPrice: '32.0',
          price: '8.0',
-         dis_count: '9',
+         discount: '9',
        },
        {
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-         original_price: '32.0',
+         originalPrice: '32.0',
          price: '8.0',
-         dis_count: '9',
+         discount: '9',
        },
        {
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-         original_price: '32.0',
+         originalPrice: '32.0',
          price: '8.0',
-         dis_count: '9',
+         discount: '9',
        }
      ]
   })
@@ -55,9 +55,9 @@
       image: '/src/assets/s8570133.jpg',
       describe: '生而为奴/“猫奴”日常，当代水墨漫画勾勒逗趣猫态',
       price: '22.4',
-      original_price: '68.0',
+      originalPrice: '68.0',
       detail: '“文艺的桌子上怎么能没有猫呢？”猫奴、房奴、孩奴……豆瓣人气作者的“为奴”日常。独特水墨漫画，写意猫生百态，超150幅奇思喵想，绘遍铲屎官的喜怒哀乐！',
-      dis_count: '9',
+      discount: '9',
       rete:'4.5',
       comment:'100'
     },
@@ -65,30 +65,30 @@
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       }
     ]
   })
@@ -97,9 +97,9 @@
       image: '/src/assets/s9065294.jpg',
       describe: '牛 初版四十周年纪念版/豆瓣8.1分，初版四十周年首次引进',
       price: '13.9',
-      original_price: '42.0',
+      originalPrice: '42.0',
       detail: '后浪华语文学系列，香港作家吴煦斌的作品既有超越性别的形而上高度，而落笔又有女性的细腻，处处召唤着对生命的热爱与信仰。全书收录11篇小说，多以自然与人的关系为主题，充满灵性。',
-      dis_count: '9',
+      discount: '9',
       rete:'4.5',
       comment:'100'
     },
@@ -107,30 +107,30 @@
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       }
     ]
   })
@@ -139,9 +139,9 @@
       image: '/src/assets/s8240024.jpg',
       describe: '我的心曾悲伤七次/豆瓣8.6分，纪伯伦诗集，冰心翻译',
       price: '5.3',
-      original_price: '25.0',
+      originalPrice: '25.0',
       detail: '收录了黎巴嫩诗人纪伯伦关于生命、艺术、爱情、人生的诗集。这是世间最纯澄美好的文字，每一字，每一句，对生命的透彻感悟，跃然纸上，直视诗人的灵魂，他阅尽世事，仍像孩子般天真。',
-      dis_count: '9',
+      discount: '9',
       rete:'4.5',
       comment:'100'
     },
@@ -149,30 +149,30 @@
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       },
       {
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-        original_price: '32.0',
+        originalPrice: '32.0',
         price: '8.0',
-        dis_count: '9',
+        discount: '9',
       }
     ]
   })
@@ -180,107 +180,107 @@
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
     {
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
-      original_price: '32.0',
+      originalPrice: '32.0',
       price: '8.0',
-      dis_count: '9',
+      discount: '9',
     },
   ])
   const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
@@ -305,7 +305,7 @@ recommends.value = convert1dTo2d(recommends.value, 5)
     <div class="common-layout">
       <el-container>
         <el-header style="height: auto;">
-          <el-row> <el-col :offset="3" :xs="20" :sm="20" :md="20" :lg="20" :xl="18">
+          <el-row> <el-col :offset="3" :xs="20" :sm="20" :md="20" :lg="19" :xl="16">
             <el-carousel :interval="4000" type="card" :height="screenHeight" :style="{ width: `${screenWidth}px`}" class="el-carousel">
             <el-carousel-item>
               <el-image src="/src/assets/acitvit (1).jpg"></el-image>
@@ -372,16 +372,16 @@ recommends.value = convert1dTo2d(recommends.value, 5)
           </el-row>
           <el-divider style="border-color: #E60000;border-width: 10px;width: 100%"/>
           <el-row>
-             <el-col :span="23" :offset="2">
+             <el-col :span="21" :offset="3">
                <el-row v-for="books in recommends">
                  <el-col :span="3" v-for="book in books" :offset="1">
-                   <el-badge :value="book.dis_count+'折'" class="item">
+                   <el-badge :value="book.discount+'折'" class="item">
                      <el-image :src="book.image"></el-image>
                    </el-badge>
                    <div style="font-size: 0.9em">{{ book.describe }}</div>
                    <span>
                 <span style="color: red">{{ book.price }}￥</span>
-                <span style="padding-left: 0.8em"><el-text tag="del" type="info" size="small">{{ book.original_price }}￥</el-text></span>
+                <span style="padding-left: 0.8em"><el-text tag="del" type="info" size="small">{{ book.originalPrice }}￥</el-text></span>
                 </span>
                  </el-col>
                </el-row>
@@ -427,6 +427,7 @@ recommends.value = convert1dTo2d(recommends.value, 5)
   color: #E60000 !important; /* 设置鼠标悬停时标签的文字颜色 */
   font-weight: bold; /* 设置选中标签的文字加粗 */
   font-size: 1.1em; /* 设置选中标签的文字大小 */
+  border-color: #E60000; /* 设置选中标签的底部激活条颜色 */
 }
 
 .demo-tabs :deep(.el-tabs__active-bar) {
