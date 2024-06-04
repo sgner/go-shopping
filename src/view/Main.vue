@@ -10,6 +10,8 @@
        username:'',
        avatar:'',
   })
+  import {verifyService} from "@/api/Verify.js";
+
   const default_avatar = ref('/src/assets/avatar.png')
   const shopping_cart = ref([
     {
@@ -104,7 +106,7 @@
   router.push('/home')
  const loginVisible = ref(false)
   const search = ref('')
-  const select = ref('搜索书名')
+  const select = ref('1')
   const login = ref({
         status: false
   })
@@ -112,7 +114,7 @@
        username:'',
        password:'',
        rePassword:'',
-       code:'',
+       // code:'',
   })
   const toRegister = ()=>{
 
@@ -130,15 +132,38 @@
     rePassword:'',
     isRemember:'',
     isAuto:'',
+    temporaryId:'',
     code:'',
   })
   const img = ref('');
-  const imageVerify = ()=>{}
+  import {useTemporaryIdStore} from "@/stores/TemporaryId.js";
+  const temId = useTemporaryIdStore()
+  const code = ref('')
+
+
+  const imageVerify = async ()=>{
+    const temporaryIdStore = useTemporaryIdStore()
+    let result
+    try{
+       result = await verifyService(temporaryIdStore.temporaryId)
+    }catch(err){
+        await verifyService(temporaryIdStore.temporaryId)
+    }
+    const codeResult = result.data
+    img.value = codeResult.image;
+    code.value = codeResult.code
+    img.value = `data:image/jpeg;base64,${img.value}`
+    if(temporaryIdStore.temporaryId === ''){
+      temporaryIdStore.setTemporaryId(codeResult.temporaryId)
+    }
+  }
   const clearLogin = ()=>{
-      loginData.value.code= ''
+    if(!rememberStore.isRemember){
       loginData.value.username = ''
-    loginData.value.password = ''
-    loginData.value.rePassword= ''
+      loginData.value.password = ''
+      loginData.value.rePassword= ''
+    }
+    loginData.value.code= ''
   }
   const checkRePassword = (rule, value, callback) => {
     if (value === '') {
@@ -149,7 +174,12 @@
       callback()
     }
   }
-
+let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!%*?&@])[A-Za-z\d@!%*?&]{8,}$/
+const thePassword = (rule,value,callback)=>{
+      if(!regex.test(value)){
+        callback(new Error("至少要有一个大小写字母一个特殊字符"))
+      }
+}
   const checkCode = (rule,value,callback)=>{
     if(value === ''){
       callback(new Error("请输入验证码"))
@@ -169,7 +199,8 @@
     ],
     password: [
       { required: true, message: '请输入密码', trigger: 'blur' },
-      { min: 5, max: 16, message: '长度为5~16位非空字符', trigger: 'blur' }
+      { min: 8, max: 16, message: '长度为8~16位非空字符', trigger: 'blur' },
+      {validator: thePassword,trigger: "blur"}
     ],
     rePassword: [
       { validator: checkRePassword, trigger: 'blur' }
@@ -187,15 +218,110 @@
       {validator: checkCode,trigger:'blur'}
     ]
   }
-  const Login = ()=>{}
-  const Register = ()=>{}
+  import {
+    autoLoginService,
+    loginService,
+    logoutService,
+    recoverService,
+    registerService,
+    searchService
+  } from "@/api/User.js";
+  import {ElMessage} from "element-plus";
+  import {useTokenStore} from "@/stores/token.js";
+  import {useRememberStore} from "@/stores/isRemember.js";
+  import {useAutoStore} from "@/stores/isAuto.js";
+  const rememberStore = useRememberStore()
+  const tokenStore = useTokenStore()
+  const autoStore = useAutoStore()
+  const userLogin = async ()=>{
+
+        loginData.value.temporaryId = temId.temporaryId
+        const result = await loginService(loginData.value)
+        success("登录成功")
+        rememberStore.setIsRemember(loginData.value.isRemember)
+        autoStore.setIsAuto(loginData.value.isAuto)
+        tokenStore.setToken(result.data)
+        isLogin.value = true
+        loginVisible.value = false
+        clearLogin()
+  }
+  const success = (msg)=>{
+        ElMessage.success(msg)
+  }
+  const Register = async ()=>{
+       await registerService(registerData.value)
+       success("注册成功")
+       login.value.status = true
+       clear()
+  }
+  const recover = async ()=>{
+    const rememberStore = useRememberStore()
+    if(rememberStore.isRemember){
+      const result =  await recoverService()
+      loginData.value.username = result.data.username;
+      loginData.value.password = result.data.password;
+      loginData.value.isRemember = true;
+    }
+  }
+const AutoLogin = async() =>{
+       const autoStore = useAutoStore()
+      if(autoStore.isAuto){
+        await autoLoginService()
+        isLogin.value = true
+      }
+}
+AutoLogin()
+const logout= async ()=>{
+  await logoutService()
+  isLogin.value = false
+  autoStore.setIsAuto(false)
+}
+  import {usePageNumStore} from "@/stores/searchResultPageNum.js";
+  import {useSearchPageStore} from "@/stores/searchResultPage.js";
+  import {useSearchMessageStore} from "@/stores/searchMessage.js";
+const logoutDialogVisible = ref(false)
+   const pageStore = useSearchPageStore()
+   const pageNumStore = usePageNumStore()
+   const messageStore =useSearchMessageStore()
+  const clickSearch = async ()=>{
+          loading.value = true
+          const result = await searchService(search.value,select.value,1)
+             pageStore.setPage(result.data.books)
+           pageNumStore.setPageNum({
+                 cPageNum:1,
+                 total:result.data.total
+           })
+          messageStore.setMessage({
+                  message:search.value,
+                  mode:select.value
+          })
+           router.push("/search")
+          loading.value = false
+ }
+  const loading = ref(false)
 </script>
 
 <template>
+  <el-dialog
+      v-model="logoutDialogVisible"
+      title="您确定要退出吗"
+      width="500"
+      align-center
+  >
+    <span>点击确定立即退出登录状态，自动登录将取消</span>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="logoutDialogVisible = false" type="danger" plain>取消</el-button>
+        <el-button type="danger" @click="logoutDialogVisible = false;logout()">
+          确认
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
     <el-dialog v-model="loginVisible" title="注册/登录" width="600" draggable>
         <loginComponent :clear="clear" :clear-login="clearLogin"
                         :image-verify="imageVerify" :img="img"
-                        :login="Login" :login-data="loginData"
+                        :login="userLogin" :login-data="loginData"
                         :login-rule="loginRule" :isLogin="login" :register-data="registerData" :toRegister="Register" :rules="rules"/>
     </el-dialog>
     <div class="common-layout" style="min-width: 75em;">
@@ -214,7 +340,7 @@
                 <div class="welcome-section">
                    欢迎光临购书网！
                 <span v-if="!isLogin" class="login-prompt">
-                    请<el-link type="danger" class="login-link" @click="loginVisible=true;login.status=false;">注册</el-link><el-divider direction="vertical" /> <el-link type="danger" class="login-link" @click="loginVisible=true;login.status=true;">登录</el-link>
+                    请<el-link type="danger" class="login-link" @click="loginVisible=true;login.status=false;imageVerify()">注册</el-link><el-divider direction="vertical" /> <el-link type="danger" class="login-link" @click="loginVisible=true;login.status=true;imageVerify();recover()">登录</el-link>
                 </span>
                 </div>
                 <div class="right-position">
@@ -281,7 +407,7 @@
                         <el-dropdown-item><el-icon><AddLocation /></el-icon>收货地址</el-dropdown-item>
                         <el-dropdown-item><el-icon><Comment /></el-icon>我的书评</el-dropdown-item>
                         <el-divider  style="margin-top: 0"/>
-                        <el-dropdown-item><span style="color:red;"><el-icon><el-icon><SwitchButton /></el-icon></el-icon>退出登录</span></el-dropdown-item>
+                        <el-dropdown-item><span style="color:red;" @click="logoutDialogVisible=true"><el-icon><el-icon><SwitchButton /></el-icon></el-icon>退出登录</span></el-dropdown-item>
                       </el-dropdown-menu>
                     </template>
                   </el-dropdown>
@@ -290,26 +416,27 @@
             </el-col>
           </el-row>
           <el-row justify="center">
-            <el-col :span="3" :offset="3">
+            <el-col :span="3" :offset="5">
               <span><el-image src="/src/assets/bbs.svg" style="width: 12em"></el-image></span>
             </el-col>
             <el-col :span="14" style="padding-top: 2.4em" :offset="2">
                <span>
                  <el-input
                    v-model="search"
-                   placeholder="Please input"
+                   placeholder="请输入"
                    class="input-border-style"
                    style="width: 43em"
                >
                 <template #append>
                   <el-select v-model="select" :placeholder="select" style="width: 7em" class="select_box">
-                  <el-option label="搜索作者" value="搜索作者" />
-                  <el-option label="搜索书名" value="搜索书名" />
-                  <el-option label="搜索出版社" value="搜索出版社" />
+                  <el-option label="搜索作者" value="1" />
+                  <el-option label="搜索书名" value="2" />
+                  <el-option label="搜索出版社" value="3" />
                   </el-select>
                 </template>
               </el-input>
-              <el-button type="danger">搜索</el-button>
+              <el-button type="danger" @click="clickSearch()" v-loading.fullscreen.lock="loading" element-loading-text="加载中... 遇到错误请刷新" element-loading-background="rgba(122, 122, 122, 0.8)"
+                         element-loading-spinner="<i class='el-icon-loading' style='color: #fff;'></i>">搜索</el-button>
               </span>
             </el-col>
 

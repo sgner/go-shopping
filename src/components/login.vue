@@ -1,6 +1,7 @@
 <script setup>
 import {User,Lock} from "@element-plus/icons-vue"
 import {computed, ref, watch} from "vue";
+import {recoverService} from "@/api/User.js";
 const props= defineProps({
       registerData: {
         type: Object,
@@ -18,7 +19,7 @@ const props= defineProps({
         type: Object,
          required: true
     },
-    Login:{
+    login:{
       type: Function,
        required: true
     },
@@ -107,7 +108,7 @@ rules:{
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" type = "danger" auto-insert-space @click="Login()" :plain="true">登录</el-button>
+          <el-button class="button" type = "danger" auto-insert-space @click="login()" :plain="true">登录</el-button>
         </el-form-item>
         <el-form-item>
           <el-link type="info" :underline="false" @click="isLogin.status=false;clearLogin();">没有账号?->注册</el-link>

@@ -3,6 +3,10 @@ import {ref} from "vue";
 import {ArrowRight, DCaret,CaretTop,CaretBottom} from "@element-plus/icons-vue";
 const activeName = ref('1');
 import searchResult from "@/components/SearchResultComponent.vue"
+import {usePageNumStore} from "@/stores/searchResultPageNum.js";
+import {searchService} from "@/api/User.js";
+import {useSearchMessageStore} from "@/stores/searchMessage.js";
+import {useSearchPageStore} from "@/stores/searchResultPage.js";
 const changer = (times)=>{
     if(times===3){
         return 1
@@ -45,7 +49,7 @@ const books = ref([
     publishTime:'2018-07-01',
     publisher:'天津人民出版社',
     price:'22.3',
-    discounts:'4',
+    discount:'4',
     originalPrice:'43',
     detail:'世界上大多数人都没活明白！ 　　到底要不要辞职？要挣钱还是要做喜欢的事？做了喜欢的事又怎么养家？…… 　　你也许正在纠结这些问题，也许已经做出了选择。这本书围绕着三个关于人生的重大问题，带你看清迷茫的本质，做出积极的选择。不管你正在经历迷茫，还是已经重整旗鼓继续前进，这本书都将指引你走向更优质的生活...',
   },
@@ -56,7 +60,7 @@ const books = ref([
     publishTime:'2018-07-01',
     publisher:'天津人民出版社',
     price:'22.3',
-    discounts:'4',
+    discount:'4',
     originalPrice:'43',
     detail:'世界上大多数人都没活明白！ 　　到底要不要辞职？要挣钱还是要做喜欢的事？做了喜欢的事又怎么养家？…… 　　你也许正在纠结这些问题，也许已经做出了选择。这本书围绕着三个关于人生的重大问题，带你看清迷茫的本质，做出积极的选择。不管你正在经历迷茫，还是已经重整旗鼓继续前进，这本书都将指引你走向更优质的生活...',
   },
@@ -68,15 +72,32 @@ const books = ref([
     publishTime:'2018-07-01',
     publisher:'天津人民出版社',
     price:'22.3',
-    discounts:'4',
+    discount:'4',
     originalPrice:'43',
     detail:'世界上大多数人都没活明白！ 　　到底要不要辞职？要挣钱还是要做喜欢的事？做了喜欢的事又怎么养家？…… 　　你也许正在纠结这些问题，也许已经做出了选择。这本书围绕着三个关于人生的重大问题，带你看清迷茫的本质，做出积极的选择。不管你正在经历迷茫，还是已经重整旗鼓继续前进，这本书都将指引你走向更优质的生活...',
   }
 ])
-const onCurrentChange = (val) => {
 
+const onCurrentChange = async (number) => {
+     const messageStore =  useSearchMessageStore()
+     const pageNumStore = usePageNumStore()
+     const pageStore = useSearchPageStore()
+        pageNumStore.setPageNum({
+              cPageNum:number,
+              total:pageNumStore.pageNum.total
+        })
+     const result  = await searchService(messageStore.message.message,messageStore.message.mode,number)
+      pageStore.setPage(result.data.books)
+      pageNumStore.setPageNum({
+           total:result.data.total,
+           cPageNum:number
+      })
 }
+
+const pageNumStore = usePageNumStore()
+const pageStore = useSearchPageStore()
 </script>
+
 
 <template>
   <div class="common-layout">
@@ -98,7 +119,7 @@ const onCurrentChange = (val) => {
             @tab-change="change"
         >
           <el-tab-pane label="售价" name="1">
-              <searchResult :books="books" :onCurrentChange="onCurrentChange"/>
+              <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
           <el-tab-pane name="2">
             <template #label>
@@ -109,7 +130,7 @@ const onCurrentChange = (val) => {
                    <CaretBottom v-else-if="time[1]===2"/>
                  </el-icon></span>
             </template>
-            <searchResult :books="books" :onCurrentChange="onCurrentChange"/>
+            <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
           <el-tab-pane name="3">
             <template #label>
@@ -118,7 +139,7 @@ const onCurrentChange = (val) => {
                  <CaretTop v-else-if="time[2]===1"/>
                    <CaretBottom v-else-if="time[2]===2"/></el-icon></span>
             </template>
-            <searchResult :books="books" :onCurrentChange="onCurrentChange"/>
+            <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
           <el-tab-pane name="4" @click="click()">
             <template #label>
@@ -127,7 +148,7 @@ const onCurrentChange = (val) => {
                  <CaretTop v-else-if="time[3]===1"/>
                    <CaretBottom v-else-if="time[3]===2"/></el-icon></span>
             </template>
-            <searchResult :books="books" :onCurrentChange="onCurrentChange"/>
+            <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
           <el-tab-pane name="5" @click="click()">
             <template #label>
@@ -136,7 +157,7 @@ const onCurrentChange = (val) => {
                  <CaretTop v-else-if="time[4]===1"/>
                    <CaretBottom v-else-if="time[4]===2"/></el-icon></span>
             </template>
-              <searchResult :books="books" :onCurrentChange="onCurrentChange"/>
+              <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
         </el-tabs>
 </el-main>

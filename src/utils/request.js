@@ -15,7 +15,7 @@ const error = (msg) => {
 //添加响应拦截器
 instance.interceptors.response.use(
     result=>{
-        if(result.data.code === 0){
+        if(result.data.code === 1){
             return result.data;
         }
         error(result.data.msg? result.data.msg:"服务异常")

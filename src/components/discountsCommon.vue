@@ -11,7 +11,7 @@
         <div class="head-price">
           <span style="color: red;font-size: 19px">{{ head.price }}￥</span>
           <span style="padding-left: 10px"><el-text tag="del" size="large" type="info">{{ head.originalPrice }}￥</el-text></span>
-          <span style="padding-left: 15px"> <el-rate v-model="head.rete" :colors="colors" disabled :texts="['差评', '有点失望', '普通', '很好的作品', '神作']" show-text show-score score-template="{value}分" allow-half></el-rate> </span>
+          <span style="padding-left: 15px"> <el-rate v-model="head.rate" :colors="colors" disabled :texts="['差评', '有点失望', '普通', '很好的作品', '神作']" show-text show-score score-template="{value}分" allow-half></el-rate> </span>
           <span style="padding-left: 5px;color: red;font-size: 10px">{{ head.comment }}条评论</span>
         </div>
         <div>

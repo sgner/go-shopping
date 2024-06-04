@@ -192,7 +192,7 @@ const comment = ref('')
                          <el-descriptions>
                            <el-descriptions-item label="ISBN:">{{book.extra.copyright.ISBN}}</el-descriptions-item>
                            <el-descriptions-item label="条形码：">{{book.extra.copyright.barcode}}</el-descriptions-item>
-                           <el-descriptions-item label="装帧：">{{book.extra.copyright.Binding}}</el-descriptions-item>
+                           <el-descriptions-item label="装帧:">{{book.extra.copyright.Binding}}</el-descriptions-item>
                            <el-descriptions-item label="册数：">
                              <span v-if="book.extra.copyright.numberOfVolumes === ''">暂无</span>
                              <span v-else>{{book.extra.copyright.numberOfVolumes}}</span>

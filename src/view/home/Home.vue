@@ -2,6 +2,8 @@
   import {Discount,Star,DocumentAdd,Comment,Pointer} from '@element-plus/icons-vue';
   import {ref} from "vue";
   import discountsCommon from "@/components/discountsCommon.vue";
+  import {longTermEventService} from "@/api/Event.js";
+  import {recommendService} from "@/api/System.js";
   const screenWidth = ref(window.innerWidth*0.65)
   const screenHeight = ref(screenWidth.value*0.2)
   window.onresize = () => {
@@ -17,7 +19,7 @@
        detail: '所谓锦言录，借一斑略知全豹，以一目尽传精神。鲁迅先生系列作品菁华摘选，当代著名学者、鲁迅研究专家陈漱渝积半个世纪研究之功，精心勾稽而成，一本书带你深读鲁迅。',
        discount: '9',
        rete:'4.5',
-       comment:'100'
+       commentCount:'100'
      },
      body: [
        {
@@ -59,7 +61,7 @@
       detail: '“文艺的桌子上怎么能没有猫呢？”猫奴、房奴、孩奴……豆瓣人气作者的“为奴”日常。独特水墨漫画，写意猫生百态，超150幅奇思喵想，绘遍铲屎官的喜怒哀乐！',
       discount: '9',
       rete:'4.5',
-      comment:'100'
+      commentCount:'100'
     },
     body: [
       {
@@ -101,7 +103,7 @@
       detail: '后浪华语文学系列，香港作家吴煦斌的作品既有超越性别的形而上高度，而落笔又有女性的细腻，处处召唤着对生命的热爱与信仰。全书收录11篇小说，多以自然与人的关系为主题，充满灵性。',
       discount: '9',
       rete:'4.5',
-      comment:'100'
+      commentCount:'100'
     },
     body: [
       {
@@ -143,7 +145,7 @@
       detail: '收录了黎巴嫩诗人纪伯伦关于生命、艺术、爱情、人生的诗集。这是世间最纯澄美好的文字，每一字，每一句，对生命的透彻感悟，跃然纸上，直视诗人的灵魂，他阅尽世事，仍像孩子般天真。',
       discount: '9',
       rete:'4.5',
-      comment:'100'
+      commentCount:'100'
     },
     body: [
       {
@@ -294,11 +296,33 @@
     return result;
   }
 recommends.value = convert1dTo2d(recommends.value, 5)
-  const pageNum = ref()
-  const pageSize = ref(15)
-  const onCurrentChange = ()=>{
 
+  const pageSize=ref(15)
+  const pageNum = ref(1)
+  const onCurrentChange = async ()=>{
+          await recommendBook(pageNum.value)
   }
+  const longTermEvent = async (id)=>{
+       const result = await longTermEventService(id)
+        if(id===1){
+          new_discounts.value = result.data
+        }else if(id===2){
+          this_week.value = result.data
+        }else if(id===3){
+          new_book.value = result.data
+        }else{
+          reader_hot.value = result.data
+        }
+  }
+  longTermEvent(1)
+const total = ref(1)
+  const recommendBook = async ()=>{
+      const result = await recommendService(pageNum.value)
+        recommends.value = convert1dTo2d(result.data.recommendBookVO, 5)
+        total.value = result.data.total
+  }
+
+  recommendBook()
 </script>
 
 <template>
@@ -326,16 +350,16 @@ recommends.value = convert1dTo2d(recommends.value, 5)
                <el-tabs type="border-card" class="demo-tabs" style="border: #E60000 solid 1px;">
                    <el-tab-pane>
                      <template #label>
-                       <span class="my-tabs-label">
+                       <span class="my-tabs-label"  @click="longTermEvent(1)">
                          <el-icon><el-icon><Discount /></el-icon></el-icon>
                          <span>新品特惠</span>
                        </span>
                      </template>
                      <discountsCommon :body="new_discounts.body" :head="new_discounts.head"></discountsCommon>
                    </el-tab-pane>
-                   <el-tab-pane>
+                   <el-tab-pane >
                      <template #label>
-                       <span class="my-tabs-label">
+                       <span class="my-tabs-label" @click="longTermEvent(2)">
                          <el-icon><el-icon><el-icon><Star /></el-icon></el-icon></el-icon>
                          <span>本周精选</span>
                        </span>
@@ -344,16 +368,16 @@ recommends.value = convert1dTo2d(recommends.value, 5)
                    </el-tab-pane>
                    <el-tab-pane>
                      <template #label>
-                       <span class="my-tabs-label">
+                       <span class="my-tabs-label" @click="longTermEvent(3)">
                          <el-icon><el-icon><el-icon><el-icon><DocumentAdd /></el-icon></el-icon></el-icon></el-icon>
                          <span>新书速递</span>
                        </span>
                      </template>
                      <discountsCommon :body="new_book.body" :head="new_book.head"></discountsCommon>
                    </el-tab-pane>
-                   <el-tab-pane label="读者热评">
+                   <el-tab-pane>
                      <template #label>
-                       <span class="my-tabs-label">
+                       <span class="my-tabs-label" @click="longTermEvent(4)">
                          <el-icon><el-icon><el-icon><el-icon><el-icon><Comment /></el-icon></el-icon></el-icon></el-icon></el-icon>
                          <span>读者热评</span>
                        </span>
@@ -389,7 +413,7 @@ recommends.value = convert1dTo2d(recommends.value, 5)
           </el-row>
           <el-row justify="center">
             <el-col :span="10" :offset="5">
-              <el-pagination background layout="total, prev, pager, next , jumper" :total="1000"  class="el-pagination"
+              <el-pagination background layout="total, prev, pager, next , jumper" :total="total"  class="el-pagination"
                              v-model:current-page="pageNum" v-model:page-size="pageSize"
                              @current-change="onCurrentChange"/>
             </el-col>
