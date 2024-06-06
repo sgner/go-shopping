@@ -116,9 +116,6 @@
        rePassword:'',
        // code:'',
   })
-  const toRegister = ()=>{
-
-  }
   const clear = ()=>{
       registerData.value = {
         username:'',
@@ -299,6 +296,28 @@ const logoutDialogVisible = ref(false)
           loading.value = false
  }
   const loading = ref(false)
+  import {watch } from 'vue'
+  import { ElTree } from 'element-plus'
+
+  const filterText = ref('')
+  const treeRef = ref(null)
+
+  const defaultProps = {
+    children: 'subCategories',
+    label: 'name',
+  }
+
+  watch(filterText, (val) => {
+    if (treeRef.value) {
+      treeRef.value.filter(val)
+    }
+  })
+
+  const filterNode = (value, data) => {
+    if (!value) return true
+    return data.label.includes(value)
+  }
+  const category = ref([])
 </script>
 
 <template>
@@ -445,12 +464,22 @@ const logoutDialogVisible = ref(false)
         </el-header>
         <el-container>
           <el-aside width="15em" style="height: 100vh;background-color:  #F2F2F2">
-            <el-tabs tab-position="right" style="height: 12em" class="demo-tabs">
-            <el-tab-pane label="User">User</el-tab-pane>
-            <el-tab-pane label="Config">Config</el-tab-pane>
-            <el-tab-pane label="Role">Role</el-tab-pane>
-            <el-tab-pane label="Task">Task</el-tab-pane>
-          </el-tabs></el-aside>
+            <el-input
+                v-model="filterText"
+                style="width: 240px"
+                placeholder="检索分类"
+            />
+
+            <el-tree
+                ref="treeRef"
+                style="max-width: 600px"
+                class="filter-tree"
+                :data="category"
+                :props="defaultProps"
+                default-expand-all
+                :filter-node-method="filterNode"
+            />
+          </el-aside>
           <el-main>
             <div style="width: 100% ; height: 100%">
               <el-scrollbar height="100vh">

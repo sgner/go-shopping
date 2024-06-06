@@ -4,9 +4,10 @@ import {ArrowRight, DCaret,CaretTop,CaretBottom} from "@element-plus/icons-vue";
 const activeName = ref('1');
 import searchResult from "@/components/SearchResultComponent.vue"
 import {usePageNumStore} from "@/stores/searchResultPageNum.js";
-import {searchService} from "@/api/User.js";
+import {searchService, searchSortService} from "@/api/User.js";
 import {useSearchMessageStore} from "@/stores/searchMessage.js";
 import {useSearchPageStore} from "@/stores/searchResultPage.js";
+import router from "@/router/index.js";
 const changer = (times)=>{
     if(times===3){
         return 1
@@ -17,23 +18,27 @@ const time = ref([0,0,0,0,0])
 const defu= ref([true,true,true,true,true])
 const click = (tab) => {
     if(tab.index == 0){
+      onCurrentChange(1)
     }else if(tab.index==1){
       defu.value[1] = false;
       time.value[1]++
       time.value[1]= changer(time.value[1])
-
+      tabChange(1,1,time.value[1])
     }else if(tab.index==2){
       defu.value[2] = false;
       time.value[2]++
       time.value[2]= changer(time.value[2])
+      tabChange(1,2,time.value[2])
     }else if(tab.index==3){
       defu.value[3] = false;
       time.value[3]++
       time.value[3]= changer(time.value[3])
+      tabChange(1,3,time.value[3])
     }else if(tab.index==4){
       defu.value[4] = false;
       time.value[4]++
       time.value[4]= changer(time.value[4])
+      tabChange(1,4,time.value[4])
     }
 }
 const change = (tab) => {
@@ -93,9 +98,28 @@ const onCurrentChange = async (number) => {
            cPageNum:number
       })
 }
+const tabChange = async(pageNum,index,sort)=>{
+  loading.value = true;
+  const messageStore =  useSearchMessageStore()
+  const pageNumStore = usePageNumStore()
+  const pageStore = useSearchPageStore()
+  pageNumStore.setPageNum({
+    cPageNum:pageNum,
+    total:pageNumStore.pageNum.total
+  })
+  const result  = await searchSortService(messageStore.message.message,messageStore.message.mode,pageNum,index,sort)
+  pageStore.setPage(result.data.books)
+  pageNumStore.setPageNum({
+    total:result.data.total,
+    cPageNum:pageNum
+  })
+  loading.value = false;
+}
 
 const pageNumStore = usePageNumStore()
 const pageStore = useSearchPageStore()
+const loading = ref(false)
+router.push("/search")
 </script>
 
 
@@ -118,10 +142,14 @@ const pageStore = useSearchPageStore()
             @tab-click="click"
             @tab-change="change"
         >
-          <el-tab-pane label="售价" name="1">
+          <el-tab-pane label="销量" name="1"
+                       v-loading.fullscreen.lock="loading" element-loading-text="加载中... 遇到错误请刷新" element-loading-background="rgba(122, 122, 122, 0.8)"
+                       element-loading-spinner="<i class='el-icon-loading' style='color: #fff;'></i>">
               <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
-          <el-tab-pane name="2">
+          <el-tab-pane name="2"
+                       v-loading.fullscreen.lock="loading" element-loading-text="加载中... 遇到错误请刷新" element-loading-background="rgba(122, 122, 122, 0.8)"
+                       element-loading-spinner="<i class='el-icon-loading' style='color: #fff;'></i>">
             <template #label>
                  <span>定价</span>
                  <span style="margin-top: 5px"><el-icon>
@@ -132,7 +160,9 @@ const pageStore = useSearchPageStore()
             </template>
             <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
-          <el-tab-pane name="3">
+          <el-tab-pane name="3"
+                       v-loading.fullscreen.lock="loading" element-loading-text="加载中... 遇到错误请刷新" element-loading-background="rgba(122, 122, 122, 0.8)"
+                       element-loading-spinner="<i class='el-icon-loading' style='color: #fff;'></i>">
             <template #label>
                 <span>折扣</span>
                 <span style="margin-top: 5px"><el-icon> <DCaret v-if="defu[2]" />
@@ -141,7 +171,9 @@ const pageStore = useSearchPageStore()
             </template>
             <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
-          <el-tab-pane name="4" @click="click()">
+          <el-tab-pane name="4"
+                       v-loading.fullscreen.lock="loading" element-loading-text="加载中... 遇到错误请刷新" element-loading-background="rgba(122, 122, 122, 0.8)"
+                       element-loading-spinner="<i class='el-icon-loading' style='color: #fff;'></i>">
             <template #label>
                <span>售价</span>
               <span style="margin-top: 5px"><el-icon> <DCaret v-if="defu[3]" />
@@ -150,7 +182,9 @@ const pageStore = useSearchPageStore()
             </template>
             <searchResult :books="pageStore.page" :onCurrentChange="onCurrentChange" :page-num="pageNumStore.pageNum"/>
           </el-tab-pane>
-          <el-tab-pane name="5" @click="click()">
+          <el-tab-pane name="5"
+                       v-loading.fullscreen.lock="loading" element-loading-text="加载中... 遇到错误请刷新" element-loading-background="rgba(122, 122, 122, 0.8)"
+                       element-loading-spinner="<i class='el-icon-loading' style='color: #fff;'></i>">
             <template #label>
                 <span>上架时间</span>
                <span style="margin-top: 5px"><el-icon> <DCaret v-if="defu[4]" />

@@ -23,5 +23,18 @@ export const logoutService = ()=>{
 }
 
 export const searchService = (message,mode,pageNum)=>{
-    return request.get("user/search/"+mode+"/"+pageNum,{params:{"message":message}})
+    return request.post("user/search",{
+        message: message,
+        mode: mode,
+        pageNum: pageNum
+    })
+}
+export const searchSortService = (message,mode,pageNum,basis,sort)=>{
+    return request.post("user/search",{
+        message: message,
+        mode: mode,
+        pageNum: pageNum,
+        basis: basis,
+        sort: sort
+    })
 }

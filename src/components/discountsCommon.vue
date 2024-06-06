@@ -3,11 +3,11 @@
   <el-row>
     <el-col :span="5">
       <el-badge :value="head.discount+'折'" class="item"></el-badge>
-      <el-image :src="head.image"></el-image>
+      <el-image :src="head.image" @click="toDetail(head.id)" style="cursor: pointer"></el-image>
     </el-col>
     <el-col :span="14">
       <div>
-        <div class="head-describe">{{ head.describe }}</div>
+        <div class="head-describe" @click="toDetail(head.id)">{{ head.describe }}</div>
         <div class="head-price">
           <span style="color: red;font-size: 19px">{{ head.price }}￥</span>
           <span style="padding-left: 10px"><el-text tag="del" size="large" type="info">{{ head.originalPrice }}￥</el-text></span>
@@ -24,12 +24,12 @@
   <el-row>
     <el-col :span="6" v-for="(book, index) in body" :key="index">
       <el-badge :value="book.discount+'折'" class="item">
-        <el-image :src="book.image"></el-image>
+        <el-image :src="book.image" @click="toDetail(book.id)"></el-image>
       </el-badge>
       <div style="font-size: 14px">{{ book.describe }}</div>
       <span>
         <span style="color: red">{{ book.price }}￥</span>
-        <span style="padding-left: 10px"><el-text tag="del" type="info" size="small">{{ book.originalPrice }}￥</el-text></span>
+        <span style="padding-left: 10px"><el-text tag="del" type="info" size="small" @click="toDetail(book.id)">{{ book.originalPrice }}￥</el-text></span>
       </span>
     </el-col>
   </el-row>
@@ -37,6 +37,9 @@
 
 <script setup>
 import {ref} from "vue";
+import {useBookDetailStore} from "@/stores/bookDetail.js";
+import {bookDetailService} from "@/api/System.js";
+import router from "@/router/index.js";
 
 defineProps({
   head: {
@@ -48,9 +51,21 @@ defineProps({
     required: true
   }}
 )
+const toDetail = async (id)=>{
+  const bookDetailStore = useBookDetailStore()
+  const result = await bookDetailService(id)
+  bookDetailStore.setBookDetail(result.data)
+  router.push("/book/book-detail")
+}
 const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
 </script>
 <style scoped>
+.link{
+  color: #0d1117;
+}
+.link:hover{
+  color:#E60000;
+}
 .item {
   margin-top: 10px;
   margin-right: 70px;
@@ -59,6 +74,10 @@ const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
   font-size: 18px;
   font-weight: bold;
   padding-top: 60px;
+  cursor: pointer;
+}
+.head-describe:hover{
+  color:#E60000;
 }
 .head-price{
   padding-top: 10px;

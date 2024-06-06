@@ -2,6 +2,8 @@
 import { ArrowRight ,ShoppingCart,Star,CaretTop,CaretBottom} from '@element-plus/icons-vue'
 import {ref} from "vue";
 import {categories} from "@vueuse/metadata";
+import {bookDetailService} from "@/api/System.js";
+import {useBookDetailStore} from "@/stores/bookDetail.js";
 const pageNum = ref('')
 const pageSize = ref('')
 const onCurrentChange = (pageNum) => {
@@ -92,6 +94,12 @@ function hasHttpsPrefix(str) {
   return httpsRegex.test(str);
 }
 const comment = ref('')
+const bookDetailStore = useBookDetailStore()
+if(bookDetailStore.bookDetail !== {}){
+     book.value = bookDetailStore.bookDetail
+     imageList.value.pop()
+     imageList.value.push(book.value.image)
+}
 </script>
 
 <template>

@@ -1,6 +1,13 @@
 <script setup>
 
 import {ShoppingCart, Star} from "@element-plus/icons-vue";
+import {bookDetailService} from "@/api/System.js";
+import {useBookDetailStore} from "@/stores/bookDetail.js";
+import router from "@/router/index.js";
+import {searchService} from "@/api/User.js";
+import {useSearchPageStore} from "@/stores/searchResultPage.js";
+import {useSearchMessageStore} from "@/stores/searchMessage.js";
+import {usePageNumStore} from "@/stores/searchResultPageNum.js";
 defineProps({
   books: {
     type: Object,
@@ -16,6 +23,27 @@ defineProps({
   }
 }
 )
+const toDetail = async (id)=>{
+     const bookDetailStore = useBookDetailStore()
+     const result = await bookDetailService(id)
+     bookDetailStore.setBookDetail(result.data)
+     router.push("/book/book-detail")
+}
+const search = async (message,mode)=>{
+  const pageNumStore = usePageNumStore()
+  const pageStore = useSearchPageStore()
+  pageNumStore.setPageNum({
+    cPageNum:1,
+    total:pageNumStore.pageNum.total
+  })
+  const result  = await searchService(message,mode,1)
+  pageStore.setPage(result.data.books)
+  pageNumStore.setPageNum({
+    total:result.data.total,
+    cPageNum:1
+  })
+  router.push("/search")
+}
 </script>
 
 <template>
@@ -23,14 +51,14 @@ defineProps({
     <el-col>
       <el-row>
         <el-col :xs="7" :sm="7" :md="8" :lg="6" :xl="5" :offset="2">
-          <el-image :src="book.image" style="min-width: 200px"></el-image>
+          <el-image :src="book.image" style="min-width: 200px;cursor: pointer" @click="toDetail(book.id)"></el-image>
         </el-col>
         <el-col :xs="11" :sm="11" :md="11" :lg="11" :xl="11">
           <el-row>
-            <el-col><span style="color: #0080CC">{{book.name}}</span></el-col>
+            <el-col><span class="link" style="cursor:pointer" @click="toDetail(book.id)">{{book.name}}</span></el-col>
           </el-row>
           <el-row style="margin-top: 10px">
-            <el-col><span style="color: #9BA6B2"><el-link type="info">{{book.author}}</el-link>&nbsp;/{{book.publishedDate}}&nbsp;/<el-link type="info">{{book.publisher}}</el-link></span></el-col>
+            <el-col><span style="color: #9BA6B2"><el-link type="info" @click="search(book.author,1)">{{book.author}}</el-link>&nbsp;/{{book.publishedDate}}&nbsp;/<el-link type="info" @click="search(book.publisher,3)">{{book.publisher}}</el-link></span></el-col>
           </el-row>
           <el-row style="margin-top: 10px">
             <el-col :span="8">
@@ -73,6 +101,12 @@ defineProps({
 </template>
 
 <style scoped>
+.link{
+  color: #0080cc;
+}
+.link:hover{
+  color:#E60000;
+}
 /* 修改未点击时的数字方块背景颜色 */
 :deep .el-pagination .el-pager li:not(.active):not(.disabled):hover {
   background-color:  #E60000 !important;

@@ -3,7 +3,9 @@
   import {ref} from "vue";
   import discountsCommon from "@/components/discountsCommon.vue";
   import {longTermEventService} from "@/api/Event.js";
-  import {recommendService} from "@/api/System.js";
+  import {bookDetailService, recommendService} from "@/api/System.js";
+  import {useBookDetailStore} from "@/stores/bookDetail.js";
+  import router from "@/router/index.js";
   const screenWidth = ref(window.innerWidth*0.65)
   const screenHeight = ref(screenWidth.value*0.2)
   window.onresize = () => {
@@ -12,6 +14,7 @@
   };
   const new_discounts = ref({
      head: {
+       id:'',
        image: '/src/assets/s5920153.jpg',
        describe: '从来如此便对么鲁迅锦言录/豆瓣8.0分，比语录完整，比文章简明',
        price: '13.5',
@@ -23,6 +26,7 @@
      },
      body: [
        {
+         id:'',
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
          originalPrice: '32.0',
@@ -30,6 +34,7 @@
          discount: '9',
        },
        {
+         id:'',
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
          originalPrice: '32.0',
@@ -37,6 +42,7 @@
          discount: '9',
        },
        {
+         id:'',
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
          originalPrice: '32.0',
@@ -44,6 +50,7 @@
          discount: '9',
        },
        {
+         id:'',
          image:'/src/assets/s6760572.jpg',
          describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
          originalPrice: '32.0',
@@ -54,6 +61,7 @@
   })
   const this_week = ref({
     head: {
+      id:'',
       image: '/src/assets/s8570133.jpg',
       describe: '生而为奴/“猫奴”日常，当代水墨漫画勾勒逗趣猫态',
       price: '22.4',
@@ -65,6 +73,7 @@
     },
     body: [
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -72,6 +81,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -79,6 +89,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -86,6 +97,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -96,6 +108,7 @@
   })
   const new_book = ref({
     head: {
+      id:'',
       image: '/src/assets/s9065294.jpg',
       describe: '牛 初版四十周年纪念版/豆瓣8.1分，初版四十周年首次引进',
       price: '13.9',
@@ -107,6 +120,7 @@
     },
     body: [
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -114,6 +128,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -121,6 +136,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -128,6 +144,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -138,6 +155,7 @@
   })
   const reader_hot = ref({
     head: {
+      id:'',
       image: '/src/assets/s8240024.jpg',
       describe: '我的心曾悲伤七次/豆瓣8.6分，纪伯伦诗集，冰心翻译',
       price: '5.3',
@@ -149,6 +167,7 @@
     },
     body: [
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -156,6 +175,7 @@
         discount: '9',
       },
       {
+        id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -163,6 +183,7 @@
         discount: '9',
       },
       {
+          id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -170,6 +191,7 @@
         discount: '9',
       },
       {
+          id:'',
         image:'/src/assets/s6760572.jpg',
         describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
         originalPrice: '32.0',
@@ -180,6 +202,7 @@
   })
   const recommends = ref( [
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -187,6 +210,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -194,6 +218,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -201,6 +226,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -208,6 +234,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -215,6 +242,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -222,6 +250,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -229,6 +258,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -236,6 +266,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -243,6 +274,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -250,6 +282,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -257,6 +290,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -264,6 +298,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -271,6 +306,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -278,6 +314,7 @@
       discount: '9',
     },
     {
+      id:'',
       image:'/src/assets/s6760572.jpg',
       describe: '我是一只骆驼/豆瓣8.4分，王小波杂文精选集',
       originalPrice: '32.0',
@@ -323,6 +360,12 @@ const total = ref(1)
   }
 
   recommendBook()
+  const toDetail = async (id)=>{
+    const bookDetailStore = useBookDetailStore()
+    const result = await bookDetailService(id)
+    bookDetailStore.setBookDetail(result.data)
+    router.push("/book/book-detail")
+  }
 </script>
 
 <template>
@@ -400,9 +443,9 @@ const total = ref(1)
                <el-row v-for="books in recommends">
                  <el-col :span="3" v-for="book in books" :offset="1">
                    <el-badge :value="book.discount+'折'" class="item">
-                     <el-image :src="book.image"></el-image>
+                     <el-image :src="book.image" style="cursor: pointer" @click="toDetail(book.id)"></el-image>
                    </el-badge>
-                   <div style="font-size: 0.9em">{{ book.describe }}</div>
+                   <div style="font-size: 0.9em;" @click="toDetail(book.id)"><el-link type="info" :underline="false" style="font-size: 0.9em" class="el-link">{{ book.describe }}</el-link></div>
                    <span>
                 <span style="color: red">{{ book.price }}￥</span>
                 <span style="padding-left: 0.8em"><el-text tag="del" type="info" size="small">{{ book.originalPrice }}￥</el-text></span>
@@ -425,6 +468,12 @@ const total = ref(1)
 </template>
 
 <style scoped>
+.el-link{
+  color: #0d1117;
+}
+.el-link:hover{
+  color: #E60000;
+}
 .recommend{
   color: #ff9675;
   font-size: 1.4em ;
